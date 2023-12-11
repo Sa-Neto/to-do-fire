@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+import Routes from "./src/routes/index.routes";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./src/firebaseConfig/config";
+import { useState } from "react";
 
 export default function App() {
+  const [user,setUser] = useState(null)
+  useEffect(() => {
+    onAuthStateChanged(auth,(user) => {
+      if(user){
+        setUser(user)
+      }else{
+        console.log('não deu certo')
+      }
+    })
+  },[auth])
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AuthProvider value={{user}}>
+        <StatusBar backgroundColor="#323232" barStyle="light-content" />
+        <Routes />
+      </AuthProvider>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
