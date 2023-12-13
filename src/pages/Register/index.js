@@ -12,7 +12,7 @@ import { ErrorMessage } from "../../componets/ErroMessage";
 export function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState(null)
   const { createUser, error: AuthError, loading } = useAuthentication();
   
@@ -22,13 +22,13 @@ export function Register() {
 
   async function handleRegister() {
 
-    if (email === "" || password === "" || name === "") {
+    if (email === "" || password === "" || displayName === "") {
       return setError('Preencha todos os campos')
     }
     const data = {
       email,
       password,
-      displayName: name
+      displayName 
     }
 
     await createUser(data)
@@ -42,8 +42,8 @@ export function Register() {
 
         <Input
           placeholder="Digite o seu nome"
-          value={name}
-          setValue={setName}
+          value={displayName}
+          setValue={setDisplayName}
         />
 
         <Input

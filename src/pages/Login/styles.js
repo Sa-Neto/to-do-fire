@@ -14,6 +14,8 @@ export const ContainerForm = styled.KeyboardAvoidingView`
   flex: 1;
   align-items: center;
   justify-content: center;
+  width: 80%;
+  margin: auto;
 `
 export const ButtonNavigator = styled.TouchableOpacity`
   margin-top: 12px;
